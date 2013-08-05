@@ -36,19 +36,8 @@ public class OutputProcessor extends InputProcessor{
 	 */
 	public static void findValueOfRoman(String query){
 		if (isValidinput(query)== true){
-			ArrayList<String> queryArray = new ArrayList<String>(Arrays.asList(query.split("((?<=:)|(?=:))|( )")));
 			ArrayList<String> tokenValueToRoman = new ArrayList<String>();
-			int startIndex = 0, endIndex = 0;
-			for (int i = 0; i < queryArray.size(); i++) {
-				if(queryArray.get(i).toLowerCase().equals("is")){
-					startIndex = i+1;
-				}
-				else if(queryArray.get(i).toLowerCase().equals("?")){
-					endIndex = i;
-				}
-			}
-			String[] array = queryArray.toArray(new String[queryArray.size()]);
-			ArrayList<String> tokenValue = new ArrayList<String>(Arrays.asList(java.util.Arrays.copyOfRange(array, startIndex, endIndex)));
+			ArrayList<String> tokenValue = splitQuery(query);
 			for (int i = 0; i < tokenValue.size(); i++) {
 				tokenValueToRoman.add(tokenRomanValueMapping.get(tokenValue.get(i)));
 			}
@@ -68,19 +57,8 @@ public class OutputProcessor extends InputProcessor{
 	 */
 	private static void findValueOfElement(String query){
 		if (isValidinput(query) == true){
-			ArrayList<String> queryArray = new ArrayList<String>(Arrays.asList(query.split("((?<=:)|(?=:))|( )")));
+			ArrayList<String> tokenValue = splitQuery(query);
 			ArrayList<String> tokenValueToRoman = new ArrayList<String>();
-			int startIndex = 0, endIndex = 0;
-			for (int i = 0; i < queryArray.size(); i++) {
-				if(queryArray.get(i).toLowerCase().equals("is")){
-					startIndex = i+1;
-				}
-				else if(queryArray.get(i).toLowerCase().equals("?")){
-					endIndex = i;
-				}
-			}
-			String[] array = queryArray.toArray(new String[queryArray.size()]);
-			ArrayList<String> tokenValue = new ArrayList<String>(Arrays.asList(java.util.Arrays.copyOfRange(array, startIndex, endIndex)));
 			String element = null;
 			for (int i = 0; i < tokenValue.size(); i++) {
 				if(tokenRomanValueMapping.get(tokenValue.get(i)) != null){
@@ -128,4 +106,27 @@ public class OutputProcessor extends InputProcessor{
 
 	}
 
+	/**
+	 * Splits the query and returns an ArrayList containing only Roman numerals and elements
+	 * @param query
+	 * @return
+	 */
+	private static ArrayList<String> splitQuery(String query){
+		ArrayList<String> queryArray = new ArrayList<String>(Arrays.asList(query.split("((?<=:)|(?=:))|( )")));
+		int startIndex = 0, endIndex = 0;
+		for (int i = 0; i < queryArray.size(); i++) {
+			if(queryArray.get(i).toLowerCase().equals("is")){
+				startIndex = i+1;
+			}
+			else if(queryArray.get(i).toLowerCase().equals("?")){
+				endIndex = i;
+
+			}
+		}
+		String[] array = queryArray.toArray(new String[queryArray.size()]);
+		return new ArrayList<String>(Arrays.asList(java.util.Arrays.copyOfRange(array, startIndex, endIndex)));
+
+	}
+
 }
+
