@@ -1,0 +1,4 @@
+To run the application run Program.rb inside main.com.app.start package.
+You can specify the input file as command line argument else by default the application will pick up Input inside main.com.app.logic package as input file.
+Unit Test cases have been written using JUnit.
+Thank You
